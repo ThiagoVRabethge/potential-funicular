@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import { useState } from 'react'
 import api from "./services/api"
+import Swal from "sweetalert2"
 
 function App() {
   const [username, setUsername] = useState()
@@ -16,7 +17,14 @@ function App() {
         "password": password
       })
       .then((response) => console.log(response))
-      .catch((error) => error)
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${error.response.data.detail}`,
+          footer: 'Remember: password must contain uppercase letter, lowercase letter, special character, a number and at least 8 characters'
+        })
+      })
   }
 
   return (
@@ -45,8 +53,8 @@ function App() {
             />
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="btn btn-success"
           >
             Register
