@@ -1,13 +1,19 @@
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css'
 import { useState } from 'react'
-import api from "./services/api"
+import { useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
-import SignUpForm from './components/SignUpForm';
+import SignUpForm from './components/SignUpForm'
+import useUserSessionStore from './data/userSession'
+import api from "./services/api"
 
 function App() {
+  const navigate = useNavigate()
+
   const [username, setUsername] = useState()
 
   const [password, setPassword] = useState()
+
+  const setUserSession = useUserSessionStore(state => state.setUserSession)
 
   const handleSignIn = async (e) => {
     e.preventDefault()
@@ -18,7 +24,11 @@ function App() {
         "password": password
       })
       .then((response) => {
-        console.log(response)
+        let userData = {
+          username: response.data
+        }
+        setUserSession(userData)
+        navigate('/welcome', { replace: true })
       })
       .catch((error) => {
         Swal.fire({
@@ -73,7 +83,7 @@ function App() {
           Sign Up
         </h3>
 
-        <SignUpForm 
+        <SignUpForm
           callback={handleSignUp}
           setUsername={setUsername}
           setPassword={setPassword}
