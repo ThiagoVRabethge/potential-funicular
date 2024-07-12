@@ -19,9 +19,9 @@ const Nav = () => {
       </div>
 
       <div className="p-3">
-        <button className="btn btn-dark">
+        <Link to="/apps" className="btn btn-dark">
           <TerminalPlus />
-        </button>
+        </Link>
       </div>
 
       <div className="p-3">
