@@ -24,10 +24,7 @@ function App() {
         "password": password
       })
       .then((response) => {
-        let userData = {
-          username: response.data
-        }
-        setUserSession(userData)
+        setUserSession(response.data)
         navigate('/welcome', { replace: true })
       })
       .catch((error) => {
