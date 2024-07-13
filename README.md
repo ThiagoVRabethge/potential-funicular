@@ -1,8 +1,24 @@
-# React + Vite
+# Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Community Store is an app store for open source PWAs. 
 
-Currently, two official plugins are available:
+If you would like to test the application, please feel free to log in with the following account:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```Username: user.test```  
+```Password: 123@UserTest```
+
+# Getting Started
+
+### Prerequisites
+
+- node js
+
+- A git clone of this repository
+
+### Install project dependencies
+
+```npm install```
+
+### Run project
+
+```npm run dev```
