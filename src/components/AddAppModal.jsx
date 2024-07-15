@@ -3,7 +3,7 @@ import api from "../services/api"
 import useUserSessionStore from "../data/userSession"
 
 const AddAppModal = (props) => {
-  const { id } = props
+  const { id, reloadAppList, selectedApp } = props
 
   const [appName, setAppName] = useState()
 
@@ -23,10 +23,25 @@ const AddAppModal = (props) => {
         "link": appLink,
         "user_id": userSession.id
       })
-      .then((response) => {
-        console.log(response)
+      .then(() => {
+        reloadAppList()
       })
       .catch((error) => console.error(error))
+  }
+
+  const handleUpdateApp = async (e) => {
+    e.preventDefault()
+
+    await api
+      .put(`/apps/${selectedApp.id}`, {
+        "name": appName,
+        "description": appDescription,
+        "link": appLink,
+        "user_id": userSession.id
+      })
+      .then(() => {
+        reloadAppList()
+      })
   }
 
   return (
@@ -34,11 +49,19 @@ const AddAppModal = (props) => {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h1 className="modal-title fs-5" id="staticBackdropLabel">New App</h1>
+            <h1 className="modal-title fs-5" id="staticBackdropLabel">
+              {
+                id == "AddAppModal" && "New App" ||
+                id == "UpdateAppModal" && "Update App"    
+              }
+            </h1>
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <form onSubmit={(e) => handleAddApp(e)}>
+          <form onSubmit={(e) => {
+            id == "AddAppModal" && handleAddApp(e) ||
+            id == "UpdateAppModal" && handleUpdateApp(e)
+          }}>
             <div className="modal-body">
               <div className="mb-3">
                 <input
