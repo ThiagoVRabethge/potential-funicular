@@ -6,8 +6,10 @@ import useUserSessionStore from '../data/userSession'
 const Nav = () => {
   const setUserSession = useUserSessionStore(state => state.setUserSession)
 
+  const resetState = useUserSessionStore(state => state.resetState)
+
   const handleLogout = () => {
-    setUserSession({})
+    resetState()
   }
 
   return (
