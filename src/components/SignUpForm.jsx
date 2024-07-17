@@ -26,12 +26,14 @@ const SignUpForm = (props) => {
         />
       </div>
 
-      <button
-        type="submit"
-        className="btn btn-success"
-      >
-        {buttonText}
-      </button>
+      <div className="text-end">
+        <button
+          type="submit"
+          className="btn btn-dark"
+        >
+          {buttonText}
+        </button>
+      </div>
     </form>
   )
 }
