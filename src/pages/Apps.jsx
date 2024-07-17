@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { FolderPlus, Pencil, Trash } from "react-bootstrap-icons"
-import AddAppModal from "../components/AddAppModal"
+import Button from 'react-bootstrap/Button'
+import AddUpdateAppModal from "../components/AddUpdateAppModal"
 import Nav from "../components/Nav"
+import useAppStore from "../data/appStore"
 import useUserSessionStore from "../data/userSession"
 import api from "../services/api"
 
@@ -12,20 +14,98 @@ const Apps = () => {
 
   const [selectedApp, setSelectedApp] = useState()
 
+  const appName = useAppStore(state => state.appName)
+
+  const appDescription = useAppStore(state => state.appDescription)
+
+  const appLink = useAppStore(state => state.appLink)
+
+  const setAppName = useAppStore(state => state.setAppName)
+
+  const setAppDescription = useAppStore(state => state.setAppDescription)
+
+  const setAppLink = useAppStore(state => state.setAppLink)
+
+  const resetState = useAppStore(state => state.resetState)
+
+  const [showAddAppModal, setShowAddAppModal] = useState(false)
+
+  const handleCloseAddAppModal = () => {
+    setShowAddAppModal(false)
+    resetState()
+  }
+
+  const handleOpenAddAppModal = () => {
+    setShowAddAppModal(true)
+    resetState()
+  }
+
+  const [showUpdateAppModal, setShowUpdateAppModal] = useState(false)
+
+  const handleCloseUpdateAppModal = () => {
+    setShowUpdateAppModal(false)
+    resetState()
+  }
+
+  const handleOpenUpdateAppModal = () => {
+    setShowUpdateAppModal(true)
+    resetState()
+  }
+
   useEffect(() => {
     getUserApps()
   }, [])
 
-  const getUserApps = async () => {
-    await api
+  const handleLoadAppDataModal = (app) => {
+    resetState()
+    setSelectedApp(app)
+    setAppName(app.name)
+    setAppDescription(app.description)
+    setAppLink(app.link)
+  }
+
+  const getUserApps = () => {
+    api
       .get(`/users/${userSession.id}/apps`)
       .then((response) => {
         setAppsList(response.data)
       })
   }
 
-  const deleteApp = async (appId) => {
-    await api
+  const handleAddApp = (e) => {
+    e.preventDefault()
+
+    api
+      .post("/apps", {
+        "name": appName,
+        "description": appDescription,
+        "link": appLink,
+        "user_id": userSession.id
+      })
+      .then(() => {
+        getUserApps()
+        handleCloseAddAppModal()
+      })
+  }
+
+  const handleUpdateApp = (e) => {
+    e.preventDefault()
+
+    api
+      .put(`/apps/${selectedApp.id}`, {
+        "name": appName,
+        "description": appDescription,
+        "link": appLink,
+        "user_id": userSession.id
+      })
+      .then(() => {
+        getUserApps()
+        handleCloseUpdateAppModal()
+      })
+  }
+
+  const deleteApp = (appId) => {
+    api
       .delete(`/apps/${appId}`)
       .then(() => {
         getUserApps()
@@ -41,13 +121,12 @@ const Apps = () => {
           </div>
 
           <div className="col-6 text-end">
-            <button
-              className="btn btn-dark"
-              data-bs-toggle="modal"
-              data-bs-target="#AddAppModal"
+            <Button
+              variant="dark"
+              onClick={() => handleOpenAddAppModal()}
             >
               <FolderPlus />
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -73,14 +152,16 @@ const Apps = () => {
                     <Trash />
                   </button>
 
-                  <button
-                    className="btn btn-dark mb-1 me-1"
-                    onClick={() => setSelectedApp(app)}
-                    data-bs-toggle="modal"
-                    data-bs-target="#UpdateAppModal"
+                  <Button
+                    variant="dark"
+                    className="mb-1 me-1"
+                    onClick={() => {
+                      handleOpenUpdateAppModal()
+                      handleLoadAppDataModal(app)
+                    }}
                   >
                     <Pencil />
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -88,18 +169,21 @@ const Apps = () => {
         ))}
       </div>
 
-      <Nav />
-
-      <AddAppModal
+      <AddUpdateAppModal
         id={"AddAppModal"}
-        reloadAppList={getUserApps}
+        show={showAddAppModal}
+        handleClose={handleCloseAddAppModal}
+        callback={handleAddApp}
       />
 
-      <AddAppModal
+      <AddUpdateAppModal
         id={"UpdateAppModal"}
-        reloadAppList={getUserApps}
-        selectedApp={selectedApp}
+        show={showUpdateAppModal}
+        handleClose={handleCloseUpdateAppModal}
+        callback={handleUpdateApp}
       />
+
+      <Nav />
     </>
   )
 }
