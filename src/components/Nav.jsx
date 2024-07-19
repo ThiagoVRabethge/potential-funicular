@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css'
-import { BoxArrowDownLeft, HouseFill, TerminalPlus } from 'react-bootstrap-icons'
+import { BoxArrowDownLeft, HouseFill, Shop, TerminalPlus } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 import useUserSessionStore from '../data/userSession'
 
@@ -17,6 +17,12 @@ const Nav = () => {
       <div className="p-3">
         <Link to="/welcome" className="btn btn-dark">
           <HouseFill />
+        </Link>
+      </div>
+
+      <div className="p-3">
+        <Link to="/store" className="btn btn-dark">
+          <Shop />
         </Link>
       </div>
 
