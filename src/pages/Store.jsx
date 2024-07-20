@@ -25,7 +25,7 @@ const Store = () => {
         </div>
 
         {allAppsList && allAppsList.map((app) => (
-          <div key={app.id} className="card">
+          <div key={app.id} className="card mb-3">
             <div className="card-body">
               <h6>{app.name}</h6>
 
