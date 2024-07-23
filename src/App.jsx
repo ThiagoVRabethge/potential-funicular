@@ -19,7 +19,7 @@ function App() {
     e.preventDefault()
 
     await api
-      .post("/login", {
+      .post("/sign_in", {
         "username": username,
         "password": password
       })
@@ -40,7 +40,7 @@ function App() {
     e.preventDefault()
 
     await api
-      .post("/users", {
+      .post("/sign_up", {
         "username": username,
         "password": password
       })
