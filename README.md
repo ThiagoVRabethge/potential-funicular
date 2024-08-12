@@ -4,7 +4,7 @@ The Community Store is an app store for open source PWAs.
 
 If you would like to test the application, please feel free to log in with the following account:
 
-```Username: doe.john```  
+```Username: Doe John```  
 ```Password: 123@DoeJohn```
 
 # Getting Started
