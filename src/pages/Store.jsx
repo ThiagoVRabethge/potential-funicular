@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react"
 import Nav from "../components/Nav"
 import api from "../services/api"
+import { useNavigate } from "react-router-dom"
+import useAppStore from "../data/appStore"
 
 const Store = () => {
+  const navigate = useNavigate()
+
   const [allAppsList, setAllAppsList] = useState()
+
+  const setSelectedApp = useAppStore(state => state.setSelectedApp)
 
   useEffect(() => {
     getAllApps()
@@ -17,6 +23,17 @@ const Store = () => {
       })
   }
 
+  const openAppRatings = (e, app) => {
+    e.preventDefault()
+    
+    // clear state before open ratings
+    setSelectedApp({})
+
+    setSelectedApp(app)
+
+    navigate('/ratings', { replace: true })
+  }
+
   return (
     <>
       <div className="container">
@@ -25,7 +42,7 @@ const Store = () => {
         </div>
 
         {allAppsList && allAppsList.map((app) => (
-          <div key={app.id} className="card mb-3">
+          <div key={app.id} className="card mb-3" onClick={(e) => openAppRatings(e, app)}>
             <div className="card-body">
               <h6>{app.name}</h6>
 
