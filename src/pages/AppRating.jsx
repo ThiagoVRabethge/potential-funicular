@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import Nav from "../components/Nav"
 import useAppStore from "../data/appStore"
-import api from "../services/api"
 import useUserSessionStore from "../data/userSession"
+import api from "../services/api"
 
 const AppRating = () => {
   const userSession = useUserSessionStore(state => state.userSession)
@@ -11,9 +11,20 @@ const AppRating = () => {
 
   const [appRating, setAppRating] = useState()
 
-  console.log(appRating)
+  const [appRatingsList, setAppRatingsList] = useState()
 
-  // useEffect(() => {}, [])
+  useEffect(() => {
+    getAppRatings()
+  }, [])
+
+  const getAppRatings = () => {
+    api
+      .get(`/apps_ratings/${app.id}`)
+      .then((response) => {
+        setAppRatingsList(response.data)
+      })
+      .catch((error) => console.error(error))
+  }
 
   const handleSubmitRating = (e) => {
     e.preventDefault()
@@ -26,12 +37,10 @@ const AppRating = () => {
         "app_id": app.id,
         "comment": appRating
       })
-      .then((response) => {
-        console.log(response)
+      .then(() => {
+        getAppRatings()
       })
-      .catch((error) => {
-        console.error(error)
-      })
+      .catch((error) => console.error(error))
   }
 
   return (
@@ -56,6 +65,14 @@ const AppRating = () => {
             </button>
           </div>
         </form>
+
+        {
+          appRatingsList && appRatingsList.map((rating) => (
+            <div className="mt-5">
+              {rating.username}: {rating.comment}
+            </div>
+          ))
+        }
       </div>
 
       <Nav />
