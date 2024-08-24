@@ -57,6 +57,7 @@ const AppRating = () => {
             className="form-control mb-3"
             placeholder="What awesome app"
             onChange={(e) => setAppRating(e.target.value)}
+            required
           />
 
           <div className="text-end">
@@ -66,11 +67,25 @@ const AppRating = () => {
           </div>
         </form>
 
+        <h4 className="mt-4 mb-3">
+          Comments
+        </h4>
+
         {
           appRatingsList && appRatingsList.map((rating) => (
-            <div className="mt-5">
-              {rating.username}: {rating.comment}
-            </div>
+            <>
+              <div className="mb-3" key={rating.id}>
+                <b>
+                  {rating.username}
+                </b>
+
+                <div className="card">
+                  <div className="card-body">
+                    {rating.comment}
+                  </div>
+                </div>
+              </div>
+            </>
           ))
         }
       </div>
