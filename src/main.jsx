@@ -6,6 +6,7 @@ import Welcome from "./pages/Welcome.jsx"
 import Apps from './pages/Apps.jsx'
 import Store from './pages/Store.jsx'
 import AppRating from './pages/AppRating.jsx'
+import Profile from './pages/Profile.jsx'
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
   { path: "/store", element: <Store /> },
   { path: "/apps", element: <Apps /> },
   { path: "/ratings", element: <AppRating /> },
+  { path: "/profile", element: <Profile /> },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
