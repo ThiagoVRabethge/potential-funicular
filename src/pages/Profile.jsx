@@ -42,7 +42,7 @@ const Profile = () => {
         <img
           src={
             // userData && userData.icon ||
-            "../../public/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
+            "/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
           }
           alt="profile icon"
           style={{
