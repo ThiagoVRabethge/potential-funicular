@@ -37,20 +37,21 @@ const Profile = () => {
   }
 
   return (
-    <div className="container">
-      <div className="m-4 text-center">
-        <img
-          src={
-            // userData && userData.icon ||
-            "../../public/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
-          }
-          alt="profile icon"
-          style={{
-            "maxWidth": "100px"
-          }}
-        />
+    <>
+      <div className="container">
+        <div className="m-4 text-center">
+          <img
+            src={
+              // userData && userData.icon ||
+              "/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
+            }
+            alt="profile icon"
+            style={{
+              "maxWidth": "90px"
+            }}
+          />
 
-        {/* {
+          {/* {
           showButton && (
             <>
               <br />
@@ -63,39 +64,40 @@ const Profile = () => {
             </>
           )
         } */}
+        </div>
+
+        <div className="m-4 text-center">
+          <h4>
+            {userData && userData.username}
+          </h4>
+        </div>
+
+        <textarea
+          className="form-control"
+          onChange={(e) => {
+            setShowButton(true)
+            setAboutMe(e.target.value)
+          }}
+          defaultValue={userData && userData.about_me}
+          placeholder="What great profile"
+        />
+
+        {
+          showButton && (
+            <>
+              <button
+                className="btn btn-dark mt-4 text-end"
+                onClick={() => putUserProfile()}
+              >
+                Update
+              </button>
+            </>
+          )
+        }
       </div>
-
-      <div className="m-4 text-center">
-        <h4>
-          {userData && userData.username}
-        </h4>
-      </div>
-
-      <textarea
-        className="form-control m-4"
-        onChange={(e) => {
-          setShowButton(true)
-          setAboutMe(e.target.value)
-        }}
-        defaultValue={userData && userData.about_me}
-        placeholder="What great profile"
-      />
-
-      {
-        showButton && (
-          <>
-            <button
-              className="btn btn-dark ms-4 text-end"
-              onClick={() => putUserProfile()}
-            >
-              Update
-            </button>
-          </>
-        )
-      }
 
       <Nav />
-    </div>
+    </>
   )
 }
 
