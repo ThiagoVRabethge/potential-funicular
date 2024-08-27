@@ -3,6 +3,7 @@ import Nav from "../components/Nav"
 import useAppStore from "../data/appStore"
 import useUserSessionStore from "../data/userSession"
 import api from "../services/api"
+import { Pencil, Trash } from "react-bootstrap-icons"
 
 const AppRating = () => {
   const userSession = useUserSessionStore(state => state.userSession)
@@ -12,6 +13,8 @@ const AppRating = () => {
   const [appRating, setAppRating] = useState()
 
   const [appRatingsList, setAppRatingsList] = useState()
+
+  console.log(appRatingsList)
 
   useEffect(() => {
     getAppRatings()
@@ -81,7 +84,27 @@ const AppRating = () => {
 
                 <div className="card">
                   <div className="card-body">
-                    {rating.comment}
+                    <div className="row">
+                      <div className="col-10">
+                        {rating.comment}
+                      </div>
+
+                      <div className="col-2">
+                        {
+                          rating.user_id == userSession.id && (
+                            <>
+                              <button className="btn btn-dark mb-1 me-1 disabled">
+                                <Pencil />
+                              </button>
+
+                              <button className="btn btn-dark mb-1 me-1 disabled">
+                                <Trash />
+                              </button>
+                            </>
+                          )
+                        }
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
