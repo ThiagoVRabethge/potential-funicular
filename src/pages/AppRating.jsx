@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, Fragment } from "react"
+import { CheckAll, Pencil, Trash } from "react-bootstrap-icons"
 import Nav from "../components/Nav"
 import useAppStore from "../data/appStore"
 import useUserSessionStore from "../data/userSession"
 import api from "../services/api"
-import { Pencil, Trash } from "react-bootstrap-icons"
 
 const AppRating = () => {
   const userSession = useUserSessionStore(state => state.userSession)
@@ -46,6 +46,13 @@ const AppRating = () => {
       .catch((error) => console.error(error))
   }
 
+  const handleDeleteAppRating = (appRatingId) => {
+    api
+      .delete(`/apps_ratings/${appRatingId}`)
+      .then(() => getAppRatings())
+      .catch((error) => console.error(error))
+  }
+
   return (
     <>
       <div className="container">
@@ -76,8 +83,38 @@ const AppRating = () => {
 
         {
           appRatingsList && appRatingsList.map((rating) => (
-            <>
-              <div className="mb-3" key={rating.id}>
+            <Fragment key={rating.app_rating_id}>
+              <b>
+                {rating.username}
+              </b>
+
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  disabled={rating.user_id == userSession.id ? false : true}
+                  defaultValue={rating.comment}
+                />
+
+                {
+                  rating.user_id == userSession.id && (
+                    <>
+                      <button className="input-group-text btn btn-dark">
+                        <CheckAll />
+                      </button>
+
+                      <button
+                        className="input-group-text btn btn-dark"
+                        onClick={() => handleDeleteAppRating(rating.app_rating_id)}
+                      >
+                        <Trash />
+                      </button>
+                    </>
+                  )
+                }
+              </div>
+
+              {/* <div className="mb-3" key={rating.id}>
                 <b>
                   {rating.username}
                 </b>
@@ -107,8 +144,8 @@ const AppRating = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
+              </div> */}
+            </Fragment>
           ))
         }
       </div>
