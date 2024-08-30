@@ -14,6 +14,8 @@ const AppRating = () => {
 
   const [appRatingsList, setAppRatingsList] = useState()
 
+  const [newAppRating, setNewAppRating] = useState()
+
   console.log(appRatingsList)
 
   useEffect(() => {
@@ -43,6 +45,16 @@ const AppRating = () => {
       .then(() => {
         getAppRatings()
       })
+      .catch((error) => console.error(error))
+  }
+
+  const handlePutAppRating = (appRatingId) => {
+    api
+      .put("/apps_ratings", {
+        "app_rating_id": appRatingId,
+        "new_rating": newAppRating
+      })
+      .then(() => getAppRatings())
       .catch((error) => console.error(error))
   }
 
@@ -94,12 +106,16 @@ const AppRating = () => {
                   className="form-control"
                   disabled={rating.user_id == userSession.id ? false : true}
                   defaultValue={rating.comment}
+                  onChange={(e) => setNewAppRating(e.target.value)}
                 />
 
                 {
                   rating.user_id == userSession.id && (
                     <>
-                      <button className="input-group-text btn btn-dark">
+                      <button
+                        onClick={() => handlePutAppRating(rating.app_rating_id)}
+                        className="input-group-text btn btn-dark"
+                      >
                         <CheckAll />
                       </button>
 
