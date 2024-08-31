@@ -46,17 +46,11 @@ const Store = () => {
             <div className="card-body">
               <h6>{app.name}</h6>
 
-              <p>{app.description}</p>
+              <p>{app.description} | <b>By {app.username}</b></p>
 
               <a href={app.link} target="_blank">
                 {app.link}
               </a>
-
-              <p>
-                <b>
-                  Author: {app.username}
-                </b>
-              </p>
             </div>
           </div>
         ))}
