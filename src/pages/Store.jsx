@@ -25,7 +25,7 @@ const Store = () => {
 
   const openAppRatings = (e, app) => {
     e.preventDefault()
-    
+
     // clear state before open ratings
     setSelectedApp({})
 
@@ -51,6 +51,12 @@ const Store = () => {
               <a href={app.link} target="_blank">
                 {app.link}
               </a>
+
+              <p>
+                <b>
+                  Author: {app.username}
+                </b>
+              </p>
             </div>
           </div>
         ))}
