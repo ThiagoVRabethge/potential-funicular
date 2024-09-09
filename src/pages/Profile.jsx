@@ -1,111 +1,93 @@
-import { useEffect, useState } from "react"
+import axios from "axios"
+import { useState } from "react"
 import Nav from "../components/Nav"
 import useUserSessionStore from "../data/userSession"
-import api from "../services/api"
 
 const Profile = () => {
   const userSession = useUserSessionStore(state => state.userSession)
 
-  const [userData, setUserData] = useState()
+  const setUserSession = useUserSessionStore(state => state.setUserSession)
 
-  const [showButton, setShowButton] = useState(false)
+  const [showForm, setShowForm] = useState(false)
+
+  const [file, setFile] = useState()
 
   const [aboutMe, setAboutMe] = useState()
 
-  const [icon, setIcon] = useState()
-
-  useEffect(() => {
-    getUserProfile()
-  }, [])
-
-  const getUserProfile = () => {
-    api
-      .get(`/users/${userSession.id}/profile`)
-      .then((response) => setUserData(response.data))
-      .catch((error) => console.error(error))
-  }
-
-  const putUserProfile = () => {
-    api
-      .put("/users", {
-        "user_id": userSession.id,
-        "about_me": aboutMe,
-        "icon": ""
+  const handleSubmitForm = () => {
+    axios
+      .post(`${import.meta.env.VITE_API_BASE_URL}/upload/${userSession.id}/${aboutMe}`,
+        {
+          "file": file
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      )
+      .then((response) => {
+        setUserSession(response.data)
+        setShowForm(false)
       })
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error))
   }
 
   return (
     <>
       <div className="container">
-        <div className="m-4 text-center">
+        <div className="text-center mt-4 mb-4">
           <img
             src={
-              // userData && userData.icon ||
+              `${import.meta.env.VITE_API_BASE_URL}/uploads/${userSession.icon}` ||
               "/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
             }
-            alt="profile icon"
+            // alt="user profile picture"
             style={{
-              "maxWidth": "90px"
+              width: "100px",
+              height: "100px",
+              borderRadius: "50%"
             }}
           />
 
-          {/* {
-    <div className="container">
-      <div className="m-4 text-center">
-        <img
-          src={
-            // userData && userData.icon ||
-            "/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
-          }
-          alt="profile icon"
-          style={{
-            "maxWidth": "100px"
-          }}
-        />
-
-        {/* {
-          showButton && (
-            <>
-              <br />
-
+          {
+            showForm && (
               <input
                 type="file"
-                className="form-control m-3"
-                onChange={(e) => setIcon(e.target.value)}
+                className="form-control mt-4"
+                onChange={(e) => {
+                  setFile(e.target.files[0])
+                }}
               />
-            </>
-          )
-        } */}
+            )
+          }
         </div>
 
-        <div className="m-4 text-center">
+        <div className="text-center mb-4">
           <h4>
-            {userData && userData.username}
+            <b>
+              {userSession.username}
+            </b>
           </h4>
         </div>
 
         <textarea
-          className="form-control"
+          placeholder="Awesome about me"
+          className="form-control mb-4"
+          defaultValue={userSession.about_me}
           onChange={(e) => {
-            setShowButton(true)
+            setShowForm(true)
             setAboutMe(e.target.value)
           }}
-          defaultValue={userData && userData.about_me}
-          placeholder="What great profile"
         />
 
         {
-          showButton && (
-            <>
-              <button
-                className="btn btn-dark mt-4 text-end"
-                onClick={() => putUserProfile()}
-              >
-                Update
-              </button>
-            </>
+          showForm && (
+            <button
+              className="btn btn-dark"
+              onClick={handleSubmitForm}
+            >
+              Update
+            </button>
           )
         }
       </div>
