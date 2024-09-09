@@ -38,7 +38,7 @@ const Profile = () => {
         <div className="text-center mt-4 mb-4">
           <img
             src={
-              `${import.meta.env.VITE_API_BASE_URL}/uploads/${userSession.icon}` ||
+              `${import.meta.env.VITE_API_BASE_URL}uploads/${userSession.icon}` ||
               "/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
             }
             // alt="user profile picture"
