@@ -16,7 +16,7 @@ const Profile = () => {
 
   const handleSubmitForm = () => {
     axios
-      .post(`${import.meta.env.VITE_API_BASE_URL}/upload/${userSession.id}/${aboutMe}`,
+      .post(`${import.meta.env.VITE_API_BASE_URL}upload/${userSession.id}/${aboutMe}`,
         {
           "file": file
         },
