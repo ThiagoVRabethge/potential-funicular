@@ -1,24 +1,51 @@
 # Overview
 
-The Community Store is an app store for open source PWAs. 
+Front-end of the Community Store, an app store for free and open-source PWAS
 
-If you would like to test the application, please feel free to log in with the following account:
+If you would like to test the application, please log in with the following account or create a new account:
 
-```Username: Doe John```  
-```Password: 123@DoeJohn```
+```bash
+Username: Doe John
+```
+
+```bash
+Password: 123@DoeJohn
+```
+
+### Tech Stack:
+
+- Vite, a platform-independent front-end tool for rapidly building web applications
+
+- React.js, a tool for building UI components
+
+- Bootstrap CSS, a feature-rich frontend toolkit
 
 # Getting Started
 
-### Prerequisites
+### Clone the project:
 
-- node js
+```bash
+git clone https://github.com/ThiagoVRabethge/improved-spork
+```
 
-- A git clone of this repository
+### Add the .env file:
 
-### Install project dependencies
+```bash
+cd improved-spork
+```
 
-```npm install```
+```bash
+VITE_API_BASE_URL="http://localhost:8000"
+```
 
-### Run project
+### Install the dependencies:
 
-```npm run dev```
+```bash
+npm install
+```
+
+### Run the project locally:
+
+```bash
+npm run dev
+```
