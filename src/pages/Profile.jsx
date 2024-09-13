@@ -16,7 +16,7 @@ const Profile = () => {
 
   const handleSubmitForm = () => {
     axios
-      .post(`${import.meta.env.VITE_API_BASE_URL}upload/${userSession.id}/${aboutMe}`,
+      .post(`${import.meta.env.VITE_API_BASE_URL}users/${userSession.id}/profile/${aboutMe}`,
         {
           "file": file
         },
@@ -38,7 +38,7 @@ const Profile = () => {
         <div className="text-center mt-4 mb-4">
           <img
             src={
-              `${import.meta.env.VITE_API_BASE_URL}uploads/${userSession.icon}` ||
+              `${userSession.icon}` ||
               "/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
             }
             // alt="user profile picture"
