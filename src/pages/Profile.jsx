@@ -16,7 +16,7 @@ const Profile = () => {
 
   const handleSubmitForm = () => {
     axios
-      .post(`http://localhost:8000/users/${userSession.id}/profile/${aboutMe}`,
+      .post(`${import.meta.env.VITE_API_BASE_URL}users/${userSession.id}/profile/${aboutMe}`,
         {
           "file": file
         },
