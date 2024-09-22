@@ -1,9 +1,13 @@
-const SignUpForm = (props) => {
+import { Link } from "react-router-dom"
+
+const SignInUpForm = (props) => {
   const {
     callback,
     setUsername,
     setPassword,
-    buttonText
+    buttonText,
+    redirectRoute,
+    redirectMessage
   } = props
 
   return (
@@ -26,6 +30,12 @@ const SignUpForm = (props) => {
         />
       </div>
 
+      <div className="m-3">
+        <Link to="/">
+          {redirectMessage}
+        </Link>
+      </div>
+
       <div className="text-end">
         <button
           type="submit"
@@ -38,4 +48,4 @@ const SignUpForm = (props) => {
   )
 }
 
-export default SignUpForm
+export default SignInUpForm

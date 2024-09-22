@@ -7,9 +7,11 @@ import Apps from './pages/Apps.jsx'
 import Store from './pages/Store.jsx'
 import AppRating from './pages/AppRating.jsx'
 import Profile from './pages/Profile.jsx'
+import SignIn from "./pages/signIn/SignIn.jsx"
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
+  { path: "/sign-in", element: <SignIn /> },
   { path: "/welcome", element: <Welcome /> },
   { path: "/store", element: <Store /> },
   { path: "/apps", element: <Apps /> },
