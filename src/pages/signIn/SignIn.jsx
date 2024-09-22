@@ -65,7 +65,7 @@ const SignIn = () => {
 
           <div className="row mb-4">
             <div className="col-6 text-end">
-              <Link to="/">
+              <Link to="/sign-up">
                 Dont have a account?
               </Link>
             </div>
