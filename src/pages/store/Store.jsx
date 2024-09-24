@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import Nav from "../components/Nav"
-import api from "../services/api"
+import { BoxArrowInUpRight } from "react-bootstrap-icons"
 import { useNavigate } from "react-router-dom"
-import useAppStore from "../data/appStore"
+import Nav from "../../components/Nav"
+import useAppStore from "../../data/appStore"
+import api from "../../services/api"
 
 const Store = () => {
   const navigate = useNavigate()
@@ -26,7 +27,6 @@ const Store = () => {
   const openAppRatings = (e, app) => {
     e.preventDefault()
 
-    // clear state before open ratings
     setSelectedApp({})
 
     setSelectedApp(app)
@@ -38,19 +38,24 @@ const Store = () => {
     <>
       <div className="container">
         <div className="mt-4 mb-4">
-          <h3>All apps available</h3>
+          <h3>Store</h3>
         </div>
 
         {allAppsList && allAppsList.map((app) => (
-          <div key={app.id} className="card mb-3" onClick={(e) => openAppRatings(e, app)}>
+          <div className="card mb-3" key={app.id} onClick={(e) => openAppRatings(e, app)}>
             <div className="card-body">
-              <h6>{app.name}</h6>
+              <div className="row">
+                <div className="col-10">
+                  <b>
+                    {app.name}
+                  </b>
+                </div>
 
-              <p>{app.description} | <b>By {app.username}</b></p>
+                <div className="col-2">
+                  <BoxArrowInUpRight />
+                </div>
+              </div>
 
-              <a href={app.link} target="_blank">
-                {app.link}
-              </a>
             </div>
           </div>
         ))}

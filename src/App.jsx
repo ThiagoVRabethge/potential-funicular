@@ -94,7 +94,7 @@ function App() {
 
           <div className="row mt-5">
             <div className="col-12">
-              <Link to="/" className="btn btn-dark">
+              <Link to="/public-store" className="btn btn-dark">
                 Get Started
               </Link>
             </div>

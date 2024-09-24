@@ -1,9 +1,9 @@
-import { useEffect, useState, Fragment } from "react"
-import { CheckAll, Pencil, Trash } from "react-bootstrap-icons"
-import Nav from "../components/Nav"
-import useAppStore from "../data/appStore"
-import useUserSessionStore from "../data/userSession"
-import api from "../services/api"
+import { Fragment, useEffect, useState } from "react"
+import { BoxArrowInUpRight, CheckAll, Trash } from "react-bootstrap-icons"
+import Nav from "../../components/Nav"
+import useAppStore from "../../data/appStore"
+import useUserSessionStore from "../../data/userSession"
+import api from "../../services/api"
 
 const AppRating = () => {
   const userSession = useUserSessionStore(state => state.userSession)
@@ -15,8 +15,6 @@ const AppRating = () => {
   const [appRatingsList, setAppRatingsList] = useState()
 
   const [newAppRating, setNewAppRating] = useState()
-
-  console.log(appRatingsList)
 
   useEffect(() => {
     getAppRatings()
@@ -68,11 +66,23 @@ const AppRating = () => {
   return (
     <>
       <div className="container">
-        <h2 className="mt-4">
-          {app.name}
-        </h2>
+        <div className="row mb-4 mt-3">
+          <div className="col-10">
+            <h3>
+              {app.name} | by {app.username}
+            </h3>
 
-        <p>{app.description}</p>
+            <span>
+              {app.description}
+            </span>
+          </div>
+
+          <div className="col-2 text-end">
+            <a href={`${app.link}`} className="btn btn-dark">
+              <BoxArrowInUpRight />
+            </a>
+          </div>
+        </div>
 
         <form onSubmit={(e) => handleSubmitRating(e)}>
           <textarea
