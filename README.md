@@ -4,12 +4,16 @@ Front-end of the Community Store, an app store for free and open-source PWAS
 
 If you would like to test the application, please log in with the following account or create a new account:
 
-```bash
-Username: Doe John
-```
+<b>Username:</b>
 
 ```bash
-Password: 123@DoeJohn
+Doe John
+```
+
+<b>Password:</b>
+
+```bash
+123@DoeJohn
 ```
 
 ### Tech Stack:
