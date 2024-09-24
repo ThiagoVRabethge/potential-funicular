@@ -14,6 +14,15 @@ const Profile = () => {
 
   const [aboutMe, setAboutMe] = useState()
 
+  let userHasIcon = userSession.icon != null
+
+  let userHasntIcon = userSession.icon == null
+
+  let icon = (
+    userHasIcon && userSession.icon ||
+    userHasntIcon && "/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
+  )
+
   const handleSubmitForm = () => {
     axios
       .post(`${import.meta.env.VITE_API_BASE_URL}users/${userSession.id}/profile/${aboutMe}`,
@@ -32,16 +41,14 @@ const Profile = () => {
       })
   }
 
+  console.log(icon)
+
   return (
     <>
       <div className="container">
         <div className="text-center mt-4 mb-4">
           <img
-            src={
-              `${userSession.icon}` ||
-              "/pixlr-image-generator-597b0c43-5a96-41d4-b84e-ed8cd146224e-removebg-preview.png"
-            }
-            // alt="user profile picture"
+            src={icon}
             style={{
               width: "100px",
               height: "100px",
