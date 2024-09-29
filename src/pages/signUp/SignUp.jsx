@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import api from "../../services/api"
+import { Link, useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
+import api from "../../services/api"
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -14,7 +14,7 @@ const SignUp = () => {
     e.preventDefault()
 
     await api
-      .post("/sign_up", {
+      .post("/register", {
         "username": username,
         "password": password
       })
@@ -26,6 +26,7 @@ const SignUp = () => {
           footer: 'Sign in for getting started',
         })
       })
+      .then(() => navigate('/sign-in', { replace: true }))
       .catch((error) => {
         Swal.fire({
           icon: "error",
@@ -64,19 +65,11 @@ const SignUp = () => {
               />
             </div>
 
-            {/* <div className="row mb-4">
-              <div className="col-6 text-end">
-                <Link to="/sign-up">
-                  Dont have a account?
-                </Link>
-              </div>
-
-              <div className="col-6 text-start">
-                <Link to="/">
-                  Forgot password?
-                </Link>
-              </div>
-            </div> */}
+            <div className="col-6">
+              <Link to="/sign-in">
+                Back to sign in
+              </Link>
+            </div>
 
             <div className="text-end">
               <button

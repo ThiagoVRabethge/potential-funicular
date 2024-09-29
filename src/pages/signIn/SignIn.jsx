@@ -19,7 +19,7 @@ const SignIn = () => {
     e.preventDefault()
 
     await api
-      .post("/sign_in", {
+      .post("/login", {
         "username": username,
         "password": password
       })
