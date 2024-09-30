@@ -1,7 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.css'
+import { useEffect } from 'react'
 import { Link } from "react-router-dom"
+import api from "./services/api"
 
 function App() {
+  useEffect(() => {
+    api
+      .post("/login", {
+        "username": "Doe John",
+        "password": "123@DoeJohn"
+      })
+      .then(() => console.log("loaded"))
+  })
+
   return (
     <>
       <div className="container">
