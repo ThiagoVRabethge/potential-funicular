@@ -6,11 +6,11 @@ import api from "./services/api"
 function App() {
   useEffect(() => {
     api
-      .post("/login", {
-        "username": "Doe John",
-        "password": "123@DoeJohn"
+      .get("/")
+      .then((response) => {
+        console.log(response, "render server active")
       })
-      .then(() => console.log("loaded"))
+      .catch((error) => console.error(error))
   })
 
   return (
