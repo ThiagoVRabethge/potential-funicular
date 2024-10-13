@@ -6,12 +6,18 @@ import api from "./services/api"
 function App() {
   useEffect(() => {
     api
-      .get("/")
+      .get("/", { timeout: 1000 })
       .then((response) => {
         console.log(response, "render server active")
       })
-      .catch((error) => console.error(error))
-  })
+      .catch((error) => {
+        if (error.code === 'ECONNABORTED') {
+          console.error("A requisição excedeu o tempo limite")
+        } else {
+          console.error(error)
+        }
+      })
+  }, [])
 
   return (
     <>
